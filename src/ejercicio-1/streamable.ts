@@ -193,6 +193,11 @@ export class SeriesCollection extends BasicStreamableCollection<Serie> {
     return array_aux;
   }
 
+  /**
+   * Método que busca por nombre
+   * @param nombre Nombre de la serie a buscar
+   * @returns Conjunto de series con dicho nombre.
+   */
   buscarPorNombre(nombre: string): Serie[] {
     const array_aux: Serie[] = [];
     this.elementos.forEach((elemento) => {
@@ -202,6 +207,12 @@ export class SeriesCollection extends BasicStreamableCollection<Serie> {
     });
     return array_aux;
   }
+
+  /**
+   * Método que busca todos los eleemntos con una puntuación mayor o igual.
+   * @param puntuacion puntuación mínima
+   * @returns 
+   */
   buscarPorPuntuacion(puntuacion: number): Serie[] {
     const array_aux: Serie[] = [];
     this.elementos.forEach((elemento) => {
@@ -212,6 +223,11 @@ export class SeriesCollection extends BasicStreamableCollection<Serie> {
     return array_aux;
   }
 
+  /**
+   * Método que elimina un elemento.
+   * @param nombre_elemento Nombre del elemento a buscar.
+   * @returns array de los elementos actualizados.
+   */
   eliminarElemento(nombre_elemento: string): Serie[] {
     this.elementos.forEach((elemento, indice) => {
       if (elemento.getNombre === nombre_elemento) {
@@ -221,6 +237,11 @@ export class SeriesCollection extends BasicStreamableCollection<Serie> {
     return this.elementos;
   }
 
+  /**
+   * Método que buscar por un número máximo de episodios
+   * @param numero_maximo Número máximo de episodios posible.
+   * @returns Colección de elementos que tienen un núumero de episodios menor o igual.
+   */
   buscarPorNumeroEpisodios(numero_maximo: number): Serie[] {
     const array_aux: Serie[] = [];
     this.elementos.forEach((elemento) => {
