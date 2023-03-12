@@ -1,5 +1,5 @@
-import { cancion } from "./cancion";
-import { discografia } from "./discografia";
+// import { cancion } from "./cancion";
+// import { discografia } from "./discografia";
 import { Artista } from "./artista";
 
 /**
@@ -62,7 +62,7 @@ export class biblioteca {
         discografia_.discos.forEach((disco_) => {
           disco_.getCanciones.forEach(cancion_ => {
             if (nombre_cancion === cancion_.getNombre) {
-              console.table(cancion);
+              console.table(cancion_);
               bandera = true;
             }
           })
