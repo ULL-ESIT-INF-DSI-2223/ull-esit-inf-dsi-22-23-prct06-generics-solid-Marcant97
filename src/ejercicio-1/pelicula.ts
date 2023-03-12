@@ -145,6 +145,11 @@ export class PeliculaCollection extends BasicStreamableCollection<Pelicula> {
     return this.elementos;
   }
 
+  /**
+   * Método que busca por director
+   * @param director_ 
+   * @returns devuelve un array con las peliculas.
+   */
   buscarPorDirector(director_: string): Pelicula[] {
     const array_aux: Pelicula[] = [];
     this.elementos.forEach((elemento) => {

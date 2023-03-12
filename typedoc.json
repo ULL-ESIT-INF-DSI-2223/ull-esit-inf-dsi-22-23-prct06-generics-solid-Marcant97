@@ -1,6 +1,16 @@
 {
   "entryPoints": [
-    // "./src/ejercicio-1/
+    "./src/ejercicio-1/documental.ts",
+    "./src/ejercicio-1/pelicula.ts",
+    "./src/ejercicio-1/serie.ts",
+    "./src/ejercicio-1/streamable.ts",
+    "./src/ejercicio-2/lista.ts",
+    "./src/ejercicio-3/artista.ts",
+    "./src/ejercicio-3/cancion.ts",
+    "./src/ejercicio-3/biblioteca.ts",
+    "./src/ejercicio-3/discografia.ts",
+    "./src/pe-103/numericSearchableCollection.ts",
+    "./src/pe-103/stringSearchableCollection.ts"
   ],
   "out": "./docs"
 }

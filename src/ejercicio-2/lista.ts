@@ -15,7 +15,7 @@
 /**
  * Interfaz genérica mi_lista
  */
-interface mi_lista<T> {
+export interface mi_lista<T> {
   /**
    * Método que añade al final de una lista la otra.
    * @param elemento2 lista secundaria

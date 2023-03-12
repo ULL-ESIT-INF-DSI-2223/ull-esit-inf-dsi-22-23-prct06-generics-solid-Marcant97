@@ -26,8 +26,3 @@ describe("Tests cancion", () => {
 
 const paradise = new cancion("paradise",4,["Pop"],false, 1500);
 
-// private nombre: string,
-// private duracion: number,
-// private generos: string[],
-// private single: boolean,
-// private numero_reproducciones: number

@@ -52,7 +52,6 @@ describe("Single", () => {
     expect(single1.numerocanciones()).to.eq(1);
   });
 });
-
 const single1 = new single("single1",2008,[heaven],1);
 
 

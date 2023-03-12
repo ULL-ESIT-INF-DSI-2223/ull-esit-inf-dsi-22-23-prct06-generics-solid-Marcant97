@@ -16,27 +16,44 @@ export class disco {
     private canciones: cancion[]
   ) {}
 
+  /**
+   * getter nombre
+   */
   get getNombre(): string {
     return this.nombre;
   }
 
+  /**
+   * setter nombre
+   */
   set setNombre(nombre_: string) {
     this.nombre = nombre_;
   }
 
+  /**
+   * getter año
+   */
   get getAno(): number {
     return this.ano;
   }
 
+  /**
+   * setter año
+   */
   set setAno(ano_: number) {
     this.ano = ano_;
   }
 
+  /**
+   * getter canciones
+   */
   get getCanciones(): cancion[] {
     return this.canciones;
   }
 
-
+  /**
+   * setter canciones
+   */
   set setCanciones(canciones_: cancion[]) {
     this.canciones = canciones_;
   }
@@ -95,39 +112,63 @@ export class single {
     const nombre_aux = canciones[0].getNombre;
     for (let i = 0; i < this.canciones.length; i++) {
       if (nombre_aux !== canciones[i].getNombre) {
-        canciones.splice(i,1); // en caso de ser otro nombre, lo elimino.
+        canciones.splice(i,1); // en caso de ser el mismo nombre, lo elimino del single.
       }
     }
   }
 
+  /**
+   * getter nombre
+   */
   get getNombre(): string {
     return this.nombre;
   }
 
+  /**
+   * setter nombre
+   */
   set setNombre(nombre_: string) {
     this.nombre = nombre_;
   }
 
+  /**
+   * getter año
+   */
   get getAno(): number {
     return this.ano;
   }
 
+  /**
+   * setter año
+   */
   set setAno(ano_: number) {
     this.ano = ano_;
   }
 
+  /**
+   * getter canciones
+   */
   get getCanciones(): cancion[] {
     return this.canciones;
   }
 
+  /**
+   * setter canciones
+   */
   set setCanciones(canciones_: cancion[]) {
     this.canciones = canciones_;
   }
 
+  /**
+   * getter numero versiones
+   */
   get getNumeroVersiones(): number {
     return this.numero_versiones;
   }
 
+  /**
+   * setter numero versiones
+   */
   set setNumeroVersiones(numero_versiones_: number) {
     this.numero_versiones = numero_versiones_;
   }
@@ -161,9 +202,9 @@ export class single {
    * Función que calcula el número de discos de un disco.
    * @returns Número de discos.
    */
-    numerocanciones(): number {
-      return this.canciones.length;
-    }
+  numerocanciones(): number {
+    return this.canciones.length;
+  }
 }
 
 
@@ -180,10 +221,16 @@ export class discografia<T extends disco | single> {
     private discos: T[]
   ) {}
 
+  /**
+   * getter discos
+   */
   get getDiscos(): T[] {
     return this.discos;
   }
 
+  /**
+   * setter discos
+   */
   set setDiscos(discos_: T[]) {
     this.discos = discos_;
   }

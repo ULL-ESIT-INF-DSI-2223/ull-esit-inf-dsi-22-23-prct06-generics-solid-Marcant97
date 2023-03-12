@@ -1164,14 +1164,636 @@ Las pruebas realizadas son las siguientes:
 ### Ejercicio-3
 En este ejercicio se solicita coger un ejercicio de la práctica anterior, hacer que se cumplan los principios solid y además hacer 2 cambios:
 Ahora, la discografía de un artista podrá estar formada por una colección de discos o de singles. Por lo tanto, tendrá que contemplar la nueva entidad single. Generalmente, un single se diferencia de un disco en que el single contiene una única canción o varias versiones de la misma canción.
-Además, ahora deberá hacer que la discografía sea una clase genérica. En algún punto de su código deberá concretar esta clase genérica indicando que la discografía puede ser una colección de discos, una colección de singles o una colección de discos y singles.
+Además, ahora deberá hacer que la discografía sea una clase genérica. En algún punto de su código deberá concretar esta clase genérica indicando que la discografía puede ser una colección de discos, una colección de singles o una colección de discos y singles. A continuación en primer lugar la clase cancion, que ha pasado de interfaz a ser una clase con sus getters y setters correspondientes.
 ```ts
+  /**
+   * clase canción con sus atributos correspondientes.
+   */
+  export class cancion {
+    constructor(
+      private nombre: string,
+      private duracion: number,
+      private generos: string[],
+      private single: boolean,
+      private numero_reproducciones: number
+    ) {}
+
+    /**
+     * getter nombre
+     */
+    get getNombre(): string {
+      return this.nombre;
+    }
+
+    /**
+     * setter nombre
+     */
+    set setNombre(nombre_: string) {
+      this.nombre = nombre_;
+    }
+
+    /**
+     * getter duracion
+     */
+    get getDuracion(): number {
+      return this.duracion;
+    }
+
+    /**
+     * setter duracion
+     */
+    set setDuracion(duracion_: number) {
+      this.duracion = duracion_;
+    }
+
+    /**
+     * getter generos
+     */
+    get getGeneros(): string[] {
+      return this.generos;
+    }
+
+    /**
+     * setter generos
+     */
+    set setgeneros(generos_: string[]) {
+      this.generos = generos_;
+    }
+
+    /**
+     * getter single
+     */
+    get getSingle(): boolean{
+      return this.single;
+    }
+
+    /**
+     * setter single
+     */
+    set setSingle(single_: boolean) {
+      this.single = single_;
+    }
+
+    /**
+     * getter numero reproducciones
+     */
+    get getNumeroReproducciones(): number {
+      return this.numero_reproducciones;
+    }
+
+    /**
+     * setter numero reproducciones
+     */
+    set setNumeroReproducciones(numeroReproducciones_: number) {
+      this.numero_reproducciones = numeroReproducciones_;
+    }
+  }
+```
+Luego tenemos disco,single y discografia, las 2 primeras son nuevas creaciones ya que en la anterior práctica no contaba con ninguna de estas entidades. Discografía pasar a ser un array genérico de una mezcla de discos y singles, con sus correspondientes getters y setters. Tanto disco como single tienen sus correspondientes getters y setters, además de un método que devuelve la duración del disco, otro que devuelve el número de canciones y otro que devuelve el número de reproducciones. Como extra, single tiene un número de versiones con su correspondiente getter y setter y además en el constructor de single, en caso de que se pasen varias canciones con nombres diferentes, se eliminarán.
+
+```ts
+  import { cancion } from "./cancion";
+
+  /**
+   * Clase disco
+   */
+  export class disco {
+    /**
+     * Constructor por defecto
+     * @param nombre Nombre del disco.
+     * @param ano Año de lanzamiento.
+     * @param canciones Conjunto de canciones.
+     */
+    constructor(
+      private nombre: string,
+      private ano: number,
+      private canciones: cancion[]
+    ) {}
+
+    /**
+     * getter nombre
+     */
+    get getNombre(): string {
+      return this.nombre;
+    }
+
+    /**
+     * setter nombre
+     */
+    set setNombre(nombre_: string) {
+      this.nombre = nombre_;
+    }
+
+    /**
+     * getter año
+     */
+    get getAno(): number {
+      return this.ano;
+    }
+
+    /**
+     * setter año
+     */
+    set setAno(ano_: number) {
+      this.ano = ano_;
+    }
+
+    /**
+     * getter canciones
+     */
+    get getCanciones(): cancion[] {
+      return this.canciones;
+    }
+
+    /**
+     * setter canciones
+     */
+    set setCanciones(canciones_: cancion[]) {
+      this.canciones = canciones_;
+    }
+
+
+    /**
+     * Función que calcula la duración de un disco en base a la suma de las duraciones de cada disco.
+     * @returns duración del disco en minutos.
+     */
+    duracionDisco(): number {
+      let duracion = 0;
+      this.canciones.forEach((element) => {
+        duracion += element.getDuracion;
+      });
+      return duracion;
+    }
+
+    /**
+     * Función que calcula el número de reproducciones del disco en base a la suma del número de reproducciones de cada canción.
+     * @returns número de reproducciones total
+     */
+    numeroReproduccionesDisco(): number {
+      let numero_reproducciones_total = 0;
+      this.canciones.forEach((element) => {
+        numero_reproducciones_total += element.getNumeroReproducciones;
+      });
+      return numero_reproducciones_total;
+    }
+
+    /**
+     * Función que calcula el número de discos de un disco.
+     * @returns Número de discos.
+     */
+      numerocanciones(): number {
+        return this.canciones.length;
+      }
+  }
+
+
+  /**
+   * Clase single
+   */
+  export class single {
+    /**
+     * Constructor por defecto
+     * @param nombre Nombre del single
+     * @param ano Año de lanzamiento.
+     * @param canciones Conjunto de canciones.
+     */
+    constructor(
+      private nombre: string,
+      private ano: number,
+      private canciones: cancion[],
+      private numero_versiones: number
+    ) {
+      const nombre_aux = canciones[0].getNombre;
+      for (let i = 0; i < this.canciones.length; i++) {
+        if (nombre_aux !== canciones[i].getNombre) {
+          canciones.splice(i,1); // en caso de ser el mismo nombre, lo elimino del single.
+        }
+      }
+    }
+
+    /**
+     * getter nombre
+     */
+    get getNombre(): string {
+      return this.nombre;
+    }
+
+    /**
+     * setter nombre
+     */
+    set setNombre(nombre_: string) {
+      this.nombre = nombre_;
+    }
+
+    /**
+     * getter año
+     */
+    get getAno(): number {
+      return this.ano;
+    }
+
+    /**
+     * setter año
+     */
+    set setAno(ano_: number) {
+      this.ano = ano_;
+    }
+
+    /**
+     * getter canciones
+     */
+    get getCanciones(): cancion[] {
+      return this.canciones;
+    }
+
+    /**
+     * setter canciones
+     */
+    set setCanciones(canciones_: cancion[]) {
+      this.canciones = canciones_;
+    }
+
+    /**
+     * getter numero versiones
+     */
+    get getNumeroVersiones(): number {
+      return this.numero_versiones;
+    }
+
+    /**
+     * setter numero versiones
+     */
+    set setNumeroVersiones(numero_versiones_: number) {
+      this.numero_versiones = numero_versiones_;
+    }
+
+
+    /**
+     * Función que calcula la duración de un disco en base a la suma de las duraciones de cada disco.
+     * @returns duración del disco en minutos.
+     */
+    duracionSingle(): number {
+      let duracion = 0;
+      this.canciones.forEach((element) => {
+        duracion += element.getDuracion;
+      });
+      return duracion;
+    }
+
+    /**
+     * Función que calcula el número de reproducciones del disco en base a la suma del número de reproducciones de cada canción.
+     * @returns número de reproducciones total
+     */
+    numeroReproduccionesSingle(): number {
+      let numero_reproducciones_total = 0;
+      this.canciones.forEach((element) => {
+        numero_reproducciones_total += element.getNumeroReproducciones;
+      });
+      return numero_reproducciones_total;
+    }
+
+    /**
+     * Función que calcula el número de discos de un disco.
+     * @returns Número de discos.
+     */
+    numerocanciones(): number {
+      return this.canciones.length;
+    }
+  }
+
+
+
+  /**
+   * Clase discografía
+   */
+  export class discografia<T extends disco | single> {
+    /**
+     * Constructor por defecto
+     * @param discos Conjunto de discos.
+     */
+    constructor(
+      private discos: T[]
+    ) {}
+
+    /**
+     * getter discos
+     */
+    get getDiscos(): T[] {
+      return this.discos;
+    }
+
+    /**
+     * setter discos
+     */
+    set setDiscos(discos_: T[]) {
+      this.discos = discos_;
+    }
+
+  }
 
 ```
+
+Para continuar tenemos artista, que ha pasado de ser una clase a una interfaz y además tenemos 2 subclases que la implementan como son grupo y solista. A parte de todos los atributos con sus getters y setters en ambas clases, la clase grupo tiene un atributo número de miembros. La discografía del artista es un array de singles y/o discos, como se comentó previamente.
+
+```ts
+  import { discografia,disco,single } from "./discografia";
+
+  /**
+   * Interfaz artista
+   */
+  export interface Artista {
+    nombre: string;
+    numero_oyentes: number;
+    discografia: discografia<disco|single>[];
+  }
+
+  /**
+   * Clase grupo que implementa la interfaz artista
+   */
+  export class Grupo implements Artista {
+    constructor(
+      public readonly nombre: string,
+      public readonly numero_oyentes: number,
+      public readonly discografia: discografia<disco|single>[],
+      public readonly numero_miembros: number
+    ) {}
+  }
+
+  /**
+   * Clase solista que implementa la interfaz artista
+   */
+
+  export class Solista implements Artista {
+    constructor(
+      public readonly nombre: string,
+      public readonly numero_oyentes: number,
+      public readonly discografia: discografia<disco|single>[],
+    ) {}
+  }
+```
+ 
+Para terminar, tenemos la biblioteca, cuyo atributo es un array de artistas. Tenemos 3 métodos, uno que busca por nombre de artista, otro por nombre de canción y otro por nombre de disco o single, todos devuelven un array con las coincidencias. Además tenemeos un método print para imprimir la biblioteca.
+
+```ts
+  import { Artista } from "./artista";
+  import { cancion } from "./cancion";
+  import { disco, single} from "./discografia"
+
+  /**
+   * Clase Biblioteca
+   */
+  export class biblioteca {
+    /**
+     * Constructor por defecto.
+     * @param array_artistas conjunto de artistas pertenecientes a la biblioteca.
+     */
+    constructor(public array_artistas: Artista[]) {}
+
+    /**
+     * Función que busca un artista en la biblioteca.
+     * @param nombre_artista Nombre del artista a buscar.
+     * @returns array de artistas con dicho nombre.
+     */
+    buscarArtista(nombre_artista: string): Artista[]{
+      const array_aux: Artista[] = [];
+      this.array_artistas.forEach((artista_) => {
+        if (nombre_artista === artista_.nombre) {
+          // console.table(artista_);
+          array_aux.push(artista_);
+        }
+      });
+      return array_aux;
+    }
+
+
+    /**
+     * Función que busca un disco en la biblioteca.
+     * @param nombre_disco Nombre del disco a buscar.
+     * @returns array con los discos y singles con dicho nombre.
+     */
+    buscarDisco(nombre_disco: string): (disco|single)[] {
+      const array_aux: (disco|single)[] = [];
+      this.array_artistas.forEach((artista_) => {
+        artista_.discografia.forEach((discografia_) => {
+          discografia_.getDiscos.forEach(elemento => {
+            if (nombre_disco === elemento.getNombre) {
+              // console.table(elemento);
+              array_aux.push(elemento);
+            }          
+          })
+        });
+      });
+      return array_aux;
+    }
+
+    /**
+     * Función que busca una canción en la biblioteca.
+     * @param nombre_cancion Nombre de la canción a buscar.
+     * @returns array con las canciones con dicho nombre.
+     */
+    buscarCancion(nombre_cancion: string): cancion[]{
+      const array_aux: cancion[] = [];
+      this.array_artistas.forEach((artista_) => {
+        artista_.discografia.forEach((discografia_) => {
+          discografia_.getDiscos.forEach((disco_) => {
+            disco_.getCanciones.forEach(cancion_ => {
+              if (nombre_cancion === cancion_.getNombre) {
+                // console.table(cancion_);
+                array_aux.push(cancion_);
+              }
+            })
+          });
+        });
+      });
+      return array_aux;
+    }
+
+    /**
+     * Método print
+     * @returns retorna array de artistas para las pruebas.
+     */
+    print(): Artista[]{
+      console.table(this.array_artistas);
+      return this.array_artistas;
+    }
+  }
+```
+
+
 Las pruebas realizadas son las siguientes:
 ```ts
+  import "mocha";
+  import { expect } from "chai";
+  import { cancion } from "../../src/ejercicio-3/cancion";
 
+  describe("Tests cancion", () => {
+    it("getter y setter de cancion", () => {
+      expect(paradise.getNombre).to.eq("paradise");
+      expect(paradise.getDuracion).to.eq(4);
+      expect(paradise.getGeneros).to.eql(["Pop"]);
+      expect(paradise.getSingle).to.eq(false);
+      expect(paradise.getNumeroReproducciones).to.eq(1500);
+
+      paradise.setNombre = "paradise 2";
+      paradise.setDuracion = 4.5;
+      paradise.setgeneros = ["POP"];
+      paradise.setSingle = false;
+      paradise.setNumeroReproducciones = 80000;
+
+      expect(paradise.getNombre).to.eq("paradise 2");
+      expect(paradise.getDuracion).to.eq(4.5);
+      expect(paradise.getGeneros).to.eql(["POP"]);
+      expect(paradise.getSingle).to.eq(false);
+      expect(paradise.getNumeroReproducciones).to.eq(80000);
+    });
+  });
+  const paradise = new cancion("paradise",4,["Pop"],false, 1500);
 ```
+
+```ts
+  import "mocha";
+  import { expect } from "chai";
+  import { cancion } from "../../src/ejercicio-3/cancion";
+  import { disco,single,discografia } from "../../src/ejercicio-3/discografia";
+
+  describe("Disco", () => {
+    it("getter y setter de grupo", () => {
+      expect(disco1.getNombre).to.eq("disco1");
+      expect(disco1.getAno).to.eq(2008);
+      expect(disco1.getCanciones).to.eql([paradise]);
+      disco1.setNombre = "mi disco";
+      disco1.setAno = 2015;
+      disco1.setCanciones = [paradise, heaven];
+      expect(disco1.getNombre).to.eq("mi disco");
+      expect(disco1.getAno).to.eq(2015);
+      expect(disco1.getCanciones).to.eql([paradise, heaven]);
+    });
+    it("métodos disco", () => {
+      expect(disco1.duracionDisco()).to.eq(8);
+      expect(disco1.numeroReproduccionesDisco()).to.eq(2500);
+      expect(disco1.numerocanciones()).to.eq(2);
+    });
+  });
+
+  const paradise = new cancion("paradise",4,["Pop"],false, 1500);
+  const heaven = new cancion("heaven",4,["jazz"],false, 1000);
+  const disco1 = new disco("disco1",2008,[paradise]);
+
+  describe("Single", () => {
+    it("fallo constructor single", () => {
+      const single2 = new single("single2",2010,[heaven,paradise],1);
+      expect(single2.getCanciones).to.eql([heaven]);
+    });
+    it("getter y setter de grupo", () => {
+      expect(single1.getNombre).to.eq("single1");
+      expect(single1.getAno).to.eq(2008);
+      expect(single1.getCanciones).to.eql([heaven]);
+      expect(single1.getNumeroVersiones).to.eq(1);
+      single1.setNombre = "mi single";
+      single1.setAno = 2015;
+      single1.setCanciones = [paradise];
+      single1.setNumeroVersiones = 2;
+      expect(single1.getNumeroVersiones).to.eq(2);
+      expect(single1.getNombre).to.eq("mi single");
+      expect(single1.getAno).to.eq(2015);
+      expect(single1.getCanciones).to.eql([paradise]);
+      expect(single1.getNumeroVersiones).to.eq(2);
+    });
+    it("métodos single", () => {
+      expect(single1.duracionSingle()).to.eq(4);
+      expect(single1.numeroReproduccionesSingle()).to.eq(1500);
+      expect(single1.numerocanciones()).to.eq(1);
+    });
+  });
+  const single1 = new single("single1",2008,[heaven],1);
+
+
+  describe("Discografia", () => {
+    it("prueba getter y setter discografia", () => {
+      const discografia1 = new discografia([disco1,single1]);
+      expect(discografia1.getDiscos).to.eql([disco1,single1]);
+      discografia1.setDiscos = [single1,disco1];
+      expect(discografia1.getDiscos).to.eql([single1,disco1]);
+    });
+  });
+```
+
+```ts
+  import "mocha";
+  import { expect } from "chai";
+  import { Grupo, Solista } from "../../src/ejercicio-3/artista";
+  import { discografia,disco,single } from "../../src/ejercicio-3/discografia";
+  import { cancion } from "../../src/ejercicio-3/cancion";
+
+  describe("Tests Grupo", () => {
+    it("getters de grupo", () => {
+      expect(grupo1.nombre).to.eq("Beatles");
+      expect(grupo1.numero_oyentes).to.eq(1000);
+      expect(grupo1.discografia).to.eql([discografia1]);
+      expect(grupo1.numero_miembros).to.eq(4);
+    });
+  });
+
+
+
+  describe("Tests Solista", () => {
+    it("getter de solista", () => {
+      expect(solista1.nombre).to.eq("Juan");
+      expect(solista1.numero_oyentes).to.eq(3500);
+      expect(solista1.discografia).to.eql([discografia2]);
+    });
+  });
+
+  const paradise = new cancion("paradise",4,["Pop"],false, 1500);
+  const heaven = new cancion("heaven",4,["jazz"],false, 1000);
+  const disco1 = new disco("disco1",2008,[paradise]);
+  const single1 = new single("single1",2008,[heaven],1);
+  const discografia1 = new discografia([disco1,single1]);
+  const discografia2 = new discografia([single1,disco1]);
+  const grupo1 = new Grupo("Beatles", 1000,[discografia1],4);
+  const solista1 = new Solista("Juan", 3500, [discografia2]);
+```
+
+```ts
+  import "mocha";
+  import { expect } from "chai";
+  import { Grupo, Solista } from "../../src/ejercicio-3/artista";
+  import { discografia,disco,single } from "../../src/ejercicio-3/discografia";
+  import { cancion } from "../../src/ejercicio-3/cancion";
+  import { biblioteca} from "../../src/ejercicio-3/biblioteca"
+
+  describe("Tests Biblioteca", () => {
+    it("tests buscar artista", () => {
+      expect(biblioteca1.buscarArtista("Julián")).to.eql([]);
+      expect(biblioteca1.buscarArtista("Beatles")).to.eql([grupo1]);
+    });
+    it("tests buscar disco", () => {
+      expect(biblioteca1.buscarDisco("disco1")).to.eql([disco1,disco1]);
+      expect(biblioteca1.buscarDisco("single1")).to.eql([single1,single1]);
+    });
+    it("tests buscar cancion", () => {
+      expect(biblioteca1.buscarCancion("paradise")).to.eql([paradise, paradise]);
+      expect(biblioteca1.buscarArtista("fun")).to.eql([]);
+    });
+
+    it("tests print", () => {
+      expect(biblioteca1.print()).to.eql([grupo1,solista1]);
+    });
+
+  });
+
+  const paradise = new cancion("paradise",4,["Pop"],false, 1500);
+  const heaven = new cancion("heaven",4,["jazz"],false, 1000);
+  const disco1 = new disco("disco1",2008,[paradise]);
+  const single1 = new single("single1",2008,[heaven],1);
+  const discografia1 = new discografia([disco1,single1]);
+  const discografia2 = new discografia([single1,disco1]);
+  const grupo1 = new Grupo("Beatles", 1000,[discografia1],4);
+  const solista1 = new Solista("Juan", 3500, [discografia2]);
+
+  const biblioteca1 = new biblioteca([grupo1, solista1]);
+```
+
 
 ### Ejercicio-1 PE-103
 En este ejercicio se solicita lo siguiente:
@@ -1411,6 +2033,6 @@ Las pruebas realizadas son las siguientes:
 ```
 
 
-
-pendiente:
-1. corregir el apartado de instalación/configuracion de instanbul y coveralls
+## Conclusión
+Esta práctica me ha servido para trabajar con clases e interfaces genéricas, además de utilizar clases abstractas y herencia de clases. También he hecho uso de *extends* y *implements*, así como he intentado cumplir lo más que he podido los principios SOLID.
+Para terminar, en el ejercicio de la práctica anterior, había cometido varios errores de diseño que he podido corregir.

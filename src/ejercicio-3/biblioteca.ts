@@ -1,6 +1,6 @@
-// import { cancion } from "./cancion";
-// import { discografia } from "./discografia";
 import { Artista } from "./artista";
+import { cancion } from "./cancion";
+import { disco, single} from "./discografia"
 
 /**
  * Clase Biblioteca
@@ -15,89 +15,68 @@ export class biblioteca {
   /**
    * Función que busca un artista en la biblioteca.
    * @param nombre_artista Nombre del artista a buscar.
+   * @returns array de artistas con dicho nombre.
    */
-  buscarArtista(nombre_artista: string): void {
-    let bandera = false;
+  buscarArtista(nombre_artista: string): Artista[]{
+    const array_aux: Artista[] = [];
     this.array_artistas.forEach((artista_) => {
       if (nombre_artista === artista_.nombre) {
-        console.table(artista_);
-        bandera = true;
+        // console.table(artista_);
+        array_aux.push(artista_);
       }
     });
-    if (bandera === false) {
-      console.log("No encontrado!");
-    }
+    return array_aux;
   }
 
 
   /**
    * Función que busca un disco en la biblioteca.
    * @param nombre_disco Nombre del disco a buscar.
+   * @returns array con los discos y singles con dicho nombre.
    */
-  buscarDisco(nombre_disco: string): void {
-    let bandera = false;
+  buscarDisco(nombre_disco: string): (disco|single)[] {
+    const array_aux: (disco|single)[] = [];
     this.array_artistas.forEach((artista_) => {
       artista_.discografia.forEach((discografia_) => {
-        discografia_.discos.forEach(elemento => {
+        discografia_.getDiscos.forEach(elemento => {
           if (nombre_disco === elemento.getNombre) {
-            console.table(elemento);
-            bandera = true;
+            // console.table(elemento);
+            array_aux.push(elemento);
           }          
         })
       });
     });
-    if (bandera === false) {
-      console.log("No encontrado!");
-    }
+    return array_aux;
   }
 
   /**
    * Función que busca una canción en la biblioteca.
    * @param nombre_cancion Nombre de la canción a buscar.
+   * @returns array con las canciones con dicho nombre.
    */
-  buscarCancion(nombre_cancion: string): void {
-    let bandera = false;
+  buscarCancion(nombre_cancion: string): cancion[]{
+    const array_aux: cancion[] = [];
     this.array_artistas.forEach((artista_) => {
       artista_.discografia.forEach((discografia_) => {
-        discografia_.discos.forEach((disco_) => {
+        discografia_.getDiscos.forEach((disco_) => {
           disco_.getCanciones.forEach(cancion_ => {
             if (nombre_cancion === cancion_.getNombre) {
-              console.table(cancion_);
-              bandera = true;
+              // console.table(cancion_);
+              array_aux.push(cancion_);
             }
           })
         });
       });
     });
-    if (bandera === false) {
-      console.log("No encontrado!");
-    }
+    return array_aux;
   }
 
-  print(): void {
+  /**
+   * Método print
+   * @returns retorna array de artistas para las pruebas.
+   */
+  print(): Artista[]{
     console.table(this.array_artistas);
+    return this.array_artistas;
   }
 }
-
-// const cancion3 = {nombre: 'Canción 3', duracion: 180, generos: ['Pop'], single: true, numero_reproducciones: 1000};
-// const cancion4 = {nombre: 'Canción 4',duracion: 210,generos: ['Jazz', 'Rock'],single: false,numero_reproducciones: 100};
-// const cancion1 = {nombre: 'Canción 1',duracion: 180,generos: ['Pop'],single: true,numero_reproducciones: 1000}
-// const cancion2 = {nombre: 'Canción 2',duracion: 210,generos: ['Pop', 'Rock'],single: false,numero_reproducciones: 100}
-
-// const album1 = new discografia ('Mi primer disco',2022,[ cancion1, cancion2]);
-// const album2 = new discografia('Mi segundo disco',2022,[cancion3, cancion4]);
-
-// const ed_sheeran = new artista("Ed Sheeran", 2500, [album1]);
-// const marron_5 = new artista("Marroon 5", 6000, [album2]);
-
-// const mi_biblioteca = new biblioteca([ed_sheeran, marron_5]);
-// mi_biblioteca.print();
-// mi_biblioteca.buscarArtista("Ed Sheeran");
-// mi_biblioteca.buscarArtista("Rosalia");
-
-// mi_biblioteca.buscarDisco("Mi primer disco");
-// mi_biblioteca.buscarDisco("no-album1");
-
-// mi_biblioteca.buscarCancion("Canción 1");
-// mi_biblioteca.buscarCancion("Canción 3");
-// mi_biblioteca.buscarCancion("Soldadito Marinero");
