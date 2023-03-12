@@ -1,9 +1,9 @@
 import { cancion } from "./cancion";
 
 /**
- * Clase discografía
+ * Clase disco
  */
-export class discografia {
+export class disco {
   /**
    * Constructor por defecto
    * @param nombre Nombre del disco.
@@ -11,18 +11,35 @@ export class discografia {
    * @param canciones Conjunto de canciones.
    */
   constructor(
-    public nombre: string,
-    public ano: number,
-    public canciones: cancion[]
+    private nombre: string,
+    private ano: number,
+    private canciones: cancion[]
   ) {}
 
-  /**
-   * Función que calcula el número de canciones de un disco.
-   * @returns Número de canciones.
-   */
-  numeroCanciones(): number {
-    return this.canciones.length;
+  get getNombre(): string {
+    return this.nombre;
   }
+
+  set setNombre(nombre_: string) {
+    this.nombre = nombre_;
+  }
+
+  get getAno(): number {
+    return this.ano;
+  }
+
+  set setAno(ano_: number) {
+    this.ano = ano_;
+  }
+
+  get getCanciones(): cancion[] {
+    return this.canciones;
+  }
+
+  set setCanciones(canciones_: cancion[]) {
+    this.canciones = canciones_;
+  }
+
 
   /**
    * Función que calcula la duración de un disco en base a la suma de las duraciones de cada disco.
@@ -31,7 +48,7 @@ export class discografia {
   duracionDisco(): number {
     let duracion = 0;
     this.canciones.forEach((element) => {
-      duracion += element.duracion;
+      duracion += element.getDuracion;
     });
     return duracion;
   }
@@ -43,8 +60,32 @@ export class discografia {
   numeroReproduccionesDisco(): number {
     let numero_reproducciones_total = 0;
     this.canciones.forEach((element) => {
-      numero_reproducciones_total += element.numero_reproducciones;
+      numero_reproducciones_total += element.getNumeroReproducciones;
     });
     return numero_reproducciones_total;
   }
+
+  /**
+   * Función que calcula el número de discos de un disco.
+   * @returns Número de discos.
+   */
+    numerocanciones(): number {
+      return this.canciones.length;
+    }
+}
+
+
+
+/**
+ * Clase discografía
+ */
+export class discografia {
+  /**
+   * Constructor por defecto
+   * @param discos Conjunto de discos.
+   */
+  constructor(
+    public discos: disco[]
+  ) {}
+
 }
