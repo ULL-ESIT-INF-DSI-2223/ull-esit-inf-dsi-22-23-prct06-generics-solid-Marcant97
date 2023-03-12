@@ -2,9 +2,9 @@
   "name": "ull-esit-inf-dsi-22-23-prct06-generics-solid-marcant97",
   "version": "1.0.0",
   "description": "",
-  "main": "streamable.js",
+  "main": "lista.js",
   "scripts": {
-    "start": "tsc-watch --onSuccess \"node dist/ejercicio-1/streamable.js\"",
+    "start": "tsc-watch --onSuccess \"node dist/ejercicio-2/lista.js\"",
     "coverage": "nyc npm test",
     "doc": "typedoc",
     "test": "mocha"

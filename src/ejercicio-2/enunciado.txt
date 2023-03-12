@@ -1,0 +1,13 @@
+En este ejercicio tendrá que implementar una clase genérica que modele una lista de elementos de cualquier tipo y sus operaciones sin hacer uso de ninguna de las funcionlidades proporcionadas por Array.prototype. Se permite, sin embargo, el uso de [].
+
+Deberá incluir, al menos, las siguientes operaciones para trabajar con su lista:
+
+Método append, el cual, dadas dos listas, permite añadir al final de la primera los elementos de la segunda.
+Método concatenate, que dado un número variable de listas, combina todos sus elementos en una única lista que retorna.
+Método filter, que dada una lista y un predicado lógico retorna una lista con todos los elementos de la lista inicial para los cuales el predicado lógico es verdadero.
+Método length, que devuelve el número de elementos de la lista.
+Método map, que dada una lista y una función, retorna la lista resultante de aplicar a cada elemento de la lista inicial la función.
+Método reduce, que dada una lista, una función y un acumulador inicial, reduce cada elemento al acumulador utilizando la función.
+Método reverse, el cual dada una lista, retorna una lista con los elementos originales pero en orden inverso.
+Método forEach, que dada una lista y una función, permite iterar en los elementos de la lista e invocar la función con cada uno de ellos.
+Instancie diferentes listas que contengan elementos de diferentes tipos y lleve a cabo pruebas suficientes con cada una de las listas definidas para comprobar la generalidad de la clase diseñada.
