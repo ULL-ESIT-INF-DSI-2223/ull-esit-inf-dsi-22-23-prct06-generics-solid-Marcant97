@@ -5,7 +5,7 @@
   "main": "lista.js",
   "scripts": {
     "start": "tsc-watch --onSuccess \"node dist/ejercicio-2/lista.js\"",
-    "coverage": "nyc npm test",
+    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls && rm -rf .nyc_output",
     "doc": "typedoc",
     "test": "mocha"
   },

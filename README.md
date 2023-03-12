@@ -1,5 +1,6 @@
 # Práctica 4 - Arrays, Tuplas y Enumerados.
 
+[![Coverage Status](https://coveralls.io/repos/github/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct06-generics-solid-Marcant97/badge.svg?branch=main)](https://coveralls.io/github/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct06-generics-solid-Marcant97?branch=main)
 #### Desarrollo de Sistemas Informáticos
 
 ## Índice
@@ -163,14 +164,9 @@ const prompt = Prompt();
 ```
 
 ### Istanbul y Coveralls.
-
-npm install --save-dev nyc coveralls
-
-añadir en package.json:
-"coverage": "nyc npm test",
-
-npm run coverage
-
+Para instalar la herramienta de cubrimiento de código ejecutamos: `npm install --save-dev nyc coveralls`, añadimos en el *package.json*: `"coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls && rm -rf .nyc_output",`. Deberemos poner nuestro repositorio en público. Luego accedemos a la web de coveralls, nos registramos con la cuenta de github y activamos la casilla del repositorio deseado. Copiamos el repo_token y lo pegamos en un fichero *.coveralls.yml* que crearemos.
+Para ejecutar el script y generar el cubrimiento: `npm run coverage`.
+Finalmente cogeremos el badge en formato markdown y lo pegaremos em nuestro *README.md*.
 
 ## Ejercicios Propuestos
 ### Ejercicio-1
