@@ -1,4 +1,4 @@
-# Práctica 4 - Arrays, Tuplas y Enumerados.
+# Práctica 6 - Clases e interfaces genéricas. Principios SOLID.
 
 [![Coverage Status](https://coveralls.io/repos/github/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct06-generics-solid-Marcant97/badge.svg?branch=main)](https://coveralls.io/github/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct06-generics-solid-Marcant97?branch=main)
 #### Desarrollo de Sistemas Informáticos
